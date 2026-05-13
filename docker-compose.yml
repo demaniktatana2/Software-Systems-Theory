@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  billing-service-05:
+    build: ./billing_service
+    ports:
+      - "8005:8000"
+    networks:
+      - communal-net
+
+  payment-service-05:
+    build: ./payment_service
+    ports:
+      - "9005:8000"
+    depends_on:
+      - billing-service-05
+    networks:
+      - communal-net
+
+networks:
+  communal-net:
+    driver: bridge
